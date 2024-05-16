@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Therapist Rating</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Rate My Therapist</h1>
+        <form id="new-therapist-form">
+            <input type="text" id="therapist-name" placeholder="Therapist Name" required>
+            <button type="submit">Add Therapist</button>
+        </form>
+        <div id="therapists"></div>
+    </div>
+
+    <script>
+        async function fetchTherapists() {
+            const response = await fetch('/api/therapists');
+            const therapists = await response.json();
+            document.getElementById('therapists').innerHTML = therapists.map((ther, index) => `
+                <div class="therapist">
+                    <h3>${ther.name}</h3>
+                    <ul>
+                        ${ther.ratings.map(r => `<li>${r.rating}/10: ${r.text}</li>`).join('')}
+                    </ul>
+                    <form onsubmit="addRating(event, ${index})">
+                        <input type="number" min="1" max="10" required placeholder="Rating">
+                        <input type="text" required placeholder="Comment">
+                        <button type="submit">Add Rating</button>
+                    </form>
+                </div>
+            `).join('');
+        }
+
+        async function addTherapist(event) {
+            event.preventDefault();
+            const name = document.getElementById('therapist-name').value;
+            await fetch('/api/therapists', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name })
+            });
+            document.getElementById('therapist-name').value = '';
+            fetchTherapists();
+        }
+
+        async function addRating(event, therId) {
+            event.preventDefault();
+            const rating = event.target[0].value;
+            const text = event.target[1].value;
+            await fetch(`/api/therapists/${therId}/ratings`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ rating, text })
+            });
+            fetchTherapists();
+        }
+
+        document.getElementById('new-therapist-form').addEventListener('submit', addTherapist);
+        window.onload = fetchTherapists;
+    </script>
+</body>
+</html>

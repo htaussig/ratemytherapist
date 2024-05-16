@@ -1,0 +1,96 @@
+/* styles4.css - Palette 4 - green, my second favorite */
+
+body {
+    font-family: 'Consolas', monospace;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #FFFFDD;
+    color: #016A70;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+h1 {
+    text-align: center;
+    color: #016A70;
+    margin-bottom: 2rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+input[type="text"], input[type="number"], button {
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="text"], input[type="number"] {
+    background-color: #FFF;
+}
+
+button {
+    background-color: #D2DE32;
+    color: #016A70;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #A2C579;
+}
+
+.professor {
+    background-color: #FFF;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.professor h3 {
+    margin: 0 0 1rem 0;
+    color: #016A70;
+}
+
+.professor ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+.professor ul li {
+    background-color: #D2DE32;
+    color: #016A70;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 0.5rem;
+    }
+
+    form {
+        gap: 0.5rem;
+    }
+
+    input[type="text"], input[type="number"], button {
+        font-size: 0.875rem;
+    }
+
+    button {
+        padding: 0.5rem;
+    }
+}
