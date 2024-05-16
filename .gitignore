@@ -128,3 +128,5 @@ dmypy.json
 
 # Pyright type checker
 .pyright/
+
+therapists.txt
